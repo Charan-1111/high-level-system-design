@@ -5,7 +5,7 @@
 - A system that can continuously evolve to support a growing amount of work is scalable.
 
 
-- ### How can a system grows
+- ## How can a system grows
     - A system can grow in serveral dimensions.
         - More users
         - More features
@@ -33,6 +33,21 @@
     5. ### Growth in geographic reach
         - The system is expanded to server users in new regions or contries
             - <u>Eg</u>. An e-commerce company launching websites and distribution in new regions.
-            
 
+
+
+- ## How can we scale the system to handle increasing load
+
+    - A system can grow in serveral ways to accommodate the increasing load.
+
+    1. ### Vertical Scaling ( Scale UP )
+        - Means adding more power to our existing machines by upgrading server with more RAM, faster CPUs, or additional storage.
+        - This approach is good for simple architectures, but it has limitations in how fast we can go.
+        - This is simple to implement, but it is limited by hardware capacity and cost.
+
+
+    2. ### Horizontl Scaling ( Scale Out )
+        - Means adding more machines to our system to spread the workload across the multiple servers.
+        - This is often considered as the most effective way to scale for large systems.
+        - <u>Eg</u>. Netflix uses horizontal scaling for its streaming service, adding more machines to their cluster to handle the growing number of users and data traffic.
 
