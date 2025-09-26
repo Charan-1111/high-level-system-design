@@ -22,3 +22,10 @@
     - Availability gurantees that every request ( read/write ) receives a response, without ensuring that it contains the most recent write.
     - This means that the system is still operational and responsive, even if the response from some of the nodes don't reflect most up-to-date data
     - Availability is critical and important for applications that need to remain operational at all times, such as online retail systems.
+
+3. ### Partition Tolerance
+    - Partition Tolerance means that the system continues to function despite the network partitions where nodes cannot communicate with each other.
+    - A network partition occurs when a network failure causes a distributed system to split into two or more groups of nodes that cannot communicate with each other.
+    - When there is a partition tolerance, the system must choose between consistency and availability.
+    - Partition tolerance is essential for distributed systems because network failures can and do happen.
+    - A system that tolerates partitions can maintain operations across different network segments.
