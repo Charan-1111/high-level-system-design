@@ -29,3 +29,25 @@
     - When there is a partition tolerance, the system must choose between consistency and availability.
     - Partition tolerance is essential for distributed systems because network failures can and do happen.
     - A system that tolerates partitions can maintain operations across different network segments.
+
+
+## The CAP Trade-off
+- CAP theorem asserts that in presence of network partition, a distributed system must choose between consistency and availability.
+
+1. ### CP ( Consistency and Partition Tolerance )
+    - These systems prioritize consistency and can tolerate network partitions, but at the cost of availability.
+    - During a partition, the system may reject some requests to maintain consistency.
+    - Traditonally relational databases like MySQL and PostgreSQL when configured for strong consistency, prioritizing consistency over availability during network failures.
+
+    - **Eg**. Banking systems prioritize consistency over availability, due to the data accuracy is more important than availability during network failures.
+
+2. ### AP ( Availability and Partition Tolerance )
+    - These systems ensures availability and can tolerate network partitions at the cost of consistency.
+    - During a partition, different nodes may return different values for the same data.
+    - NoSQL databases like Cassandra and DynamoDB are designed to be highly available and partition-tolerance, potentially at the cose of strong consistency.
+    - **Eg**. Amazon's shopping cart system is designed to always accept items, prioritizing availability.
+
+3. ### CP ( Consistency and Availability )
+    - In absence of partitions, a system can be both consistence and available.
+    - However network partitions are inevitable in distributed systems, making this combination impractical.
+    - **Eg**. Single-node databases can provide both consistency and availabilty but aren't partition-tolerant. In a distributed systems this combination is partically impossible.
