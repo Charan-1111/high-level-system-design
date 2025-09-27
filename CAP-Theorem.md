@@ -1,3 +1,4 @@
+
 # CAP Theorem
 
 - CAP Theorem provides a fundamental framework for understanding the trade-offs that must be made while designing distributed systems.
@@ -51,3 +52,24 @@
     - In absence of partitions, a system can be both consistence and available.
     - However network partitions are inevitable in distributed systems, making this combination impractical.
     - **Eg**. Single-node databases can provide both consistency and availabilty but aren't partition-tolerant. In a distributed systems this combination is partically impossible.
+
+## Practical Design Strategies
+- Designing distributed systems requires carefully these trade-offs based on the application requirements.
+- Below are some practical strategies
+1. ### Eventual Consistency
+	- For many systems strict consistency is not always necessary.
+	- Eventual consistency can provide a good balance where updates are propagated to all the nodes eventually, but not immediately.
+	- **Eg**. Systems where immediate consistency is not required like DNS, CDN's
+
+2. ### Strong Consistency
+	- A model ensuring that once a write is accepted, all the subsequent reads will return that data.
+	- **Eg**. System requiring hign data accuracy, like financial applications and inventory management.
+
+3. ### Tunable Consistency
+	- Tunable consistency allows systems to adjust their consistency levels based on specific needs.
+	- This provides balance between strong and eventual consistencies.
+	- Systems like cassandra allows configuring the level of consistency on a per-query basis, providing flexibility.
+
+4. ### Quorum-Based Approaches
+	- Quorum-based approaches use voting among a group of nodes to ensure a certain level of consistency and fault tolerance.
+	- **Eg**. Systems needing balance between consistency and availabiltity, often used in consensus algorithms like Paxos and Raft.
