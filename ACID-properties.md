@@ -82,3 +82,28 @@
 		3. **Snapshot Isolation**
 			- A form of MVCC where each transaction sees data as it was at the start ( or a consistent point ) of the transaction.
 			- Prevents non-repeatable reads and ditry reads. Phantom reads may still occur unless the isolation level is fully serializable.
+
+4. ## Durability
+	- Durability ensures that once a transaction has been committed, the changes it made will survive, even in the face of power failures, crashes or other catastrophic events.
+	- In other words, once a transaction says done, the data is permanantly recorded and cannot simply disappear.
+	- ### How Databases Ensures Durability
+		1. **Transactions Logs ( Write-Ahead Logging )**
+			- Most relational databases rely on a write-ahead logging ( WAL ) to preserve changes before they are written to the main data file.
+				1. **Write changes to WAL** :- The intended operations ( updates, inserts, deletes ) recorded, in the WAL on durable storage ( disk ).
+				2. **Commit the Transaction** :- Once the WAL entry is persisted, the database can mark the transaction as committed.
+				3. **Apply changes to Main Data Files** :- The updated data eventually gets written to the main files - possibly first in memory, then flushed to disk.
+			- If database crashed, it uses WAL during the recovery.
+				- **Redo** :- Any committed transactions not yet reflected in the main file are reapplied.
+				- **Undo** :- Any incomplete ( uncommitted ) transactions are rolled back to keep the database consistent.
+				
+		2. **Replication / Redundancy**
+			- In addition to WAL, many systems use replication to ensure data remains durable even if hardware or entire data center fails.
+			- **Synchronous Replication** :- Writes are immediatelu copied to multiple nodes or data centers. A transaction is marked committed only if the primary and atleast one of the replica confirm it's safely stored.
+			- **Asynchronous Replication** :- Changes eventually sync to other nodes but there is a ( small ) window where data loss can occur if the primary fails before the replica is updated.
+		
+		3. **Backups**
+			- Regular backups provide a safety net beyond logs and replication. In case of severe corruption, human error or catastrophic failures.
+			- **Full Backups** :- Capture the entire database at a point in time.
+			- **Incremental / Differential Backups** :- Store changes since the last backup for faster, more frequent backups.
+			- **Off-site Storage** :- Ensures backups remain safe from localized disaster, allowing us to restore data even if hardware is damaged.
+			
