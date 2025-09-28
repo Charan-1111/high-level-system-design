@@ -29,3 +29,20 @@
 	- **Cons**
 		- Memory usage scales with the number of users if implemented per-user.
 		- It does not guarantee a perfectly smooth rate of requests.
+- [ ] Add the implementation for the token bucket rate limiting in golang
+
+
+2. ## Leaky Bucket
+	- The Leaky Bucket algorithm is similar to token bucket, but focuses on smoothign out bursty traffic.
+	- **Working**
+		- Imagine a bucket with a small hole at the bottom.
+		- Requests enter the bucket from the top.
+		- The bucket proccesses ( "Leaks" ) requests at a constant rate through the hole.
+		- If bucket is full new requests are discarded.
+	- **Pros**
+		- Proccesses requests at a stready rate, preventing sudden bursts from overwhelming the system.
+		- Provides a consistent and predictable rate of processing requests.
+	- **Cons**
+		- Does not handle sudden bursts of requests well, excess requests are immediately dropped.
+		- Slightly more complex than token bucket.
+	- [ ] Implement algorithm in golang
