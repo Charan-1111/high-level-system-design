@@ -21,7 +21,7 @@
 				- Every operation is recorded in a write-ahead log before it is applied to the actual database tables.
 				- If a failure occurs, database uses this logs to undo the incomplete changes.
         
-      2. **Commit / Rollback Protocols**
-         - Database provides commands like *BEGIN TRANSACTION*, *COMMIT* and *ROLLBACK*.
-		     - Any changes made in between *BEGIN TRANSACTION* and *COMMIT* are considered as in-progress and won't directly and permanently applied unless the transaction commits successfully.
-		     - If any step fail, or if the *ROLLBACK* is issued explicitly, all changes since start of the transaction will be undone. 
+           2. **Commit / Rollback Protocols**
+		           - Database provides commands like *BEGIN TRANSACTION*, *COMMIT* and *ROLLBACK*.
+		           - Any changes made in between *BEGIN TRANSACTION* and *COMMIT* are considered as in-progress and won't directly and permanently applied unless the transaction commits successfully.
+		           - If any step fail, or if the *ROLLBACK* is issued explicitly, all changes since start of the transaction will be undone. 
