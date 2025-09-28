@@ -55,7 +55,7 @@
 	- ### Isolation Levels
 		- Databases typically allows us to choose the level of isolation, which balances data correctness with performance.
 		- Higher isolation level provides stronger data consistency, but can reduce systems performance by increasing the wait time for transactions.
-		- There are four common isolation levels.
+		- There are four. common isolation levels.
 			1. **Read Uncommitted**
 				- Allows ditry reads : transactions can see uncommitted changes.
 				- Rarely used as it can leads to sever anomolies.
@@ -69,3 +69,16 @@
 				- The heighest level of isolation, action as if all transactions happen sequentially one at a time.
 				- Prevents dirty reads, non-repeatable reads and phantom reads.
 				- Most expensive in terms of performace and concurrency because it can require more lockings and more conflict checks.
+	- ### How to enforce Isolation in Database
+		1. **Locking**
+			- **Pessimistic Concurrency Control**
+				- Rows or tables are locked so that no other transaction can read or write them until the lock is released.
+				- Can lead to blocking or deadlocks if multiple transactions compete for the same locks.
+		2. **MVCC ( Multi-Version Concurrency Control )**
+			- **Optimistic Concurrency Control**
+				- Instead of blocking the reads, the database keeps multiple versions of a row.
+				- Readers see a consistent snapshot of data ( like a point-in-time view ), while writers create a new version of the row when updating.
+				- This approach reduces lock contention but requires carefully managing row versions and cleanup.
+		3. **Snapshot Isolation**
+			- A form of MVCC where each transaction sees data as it was at the start ( or a consistent point ) of the transaction.
+			- Prevents non-repeatable reads and ditry reads. Phantom reads may still occur unless the isolation level is fully serializable.
