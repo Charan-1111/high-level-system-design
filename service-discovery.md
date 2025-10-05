@@ -50,3 +50,59 @@
 		5. **Configuration Management Systems**
 			- Some systems use configuration management tools ( eg :- Chef, Puppet, Ansible ) to register services.
 			- These tools manage the service lifecycle and update the service registry whenever services are added or removed.
+
+- ## Types of Service Discovery.
+	- There are two primary types of service discovery :- client-side discovery and server-side discovery.
+	1. **Client-Side Discovery**
+		- In this model, the responsibility for discovering and conneting to a service lies entirely with the client.
+		- Client is responsible for
+			- Discovering healthy service instances.
+			- Load balancing between them.
+		- **Working**
+			1. **Service Regristration**
+				- Services register themselves with a centralized service registry.
+				- They provide their network details ( IP address and Port ) along with metadata like service health or version.
+			2. **Client Queries the Registry**
+				- Client ( a micro service or API gateway ) sends a request to the service registry to find the instances of a target service.
+				- The registry responds with a list of available instances, including their IP address and Ports.
+			3. **Client Routes the Request** - Based on the information retrieved, the client selects one of the service instances ( often using a load balancing algorithm ) and connects directly to it.
+		- Client maintains control over how requests are routed, such as distributing traffic evenly across instances or prioritizing the closest instance.
+
+		- **Advantages**
+			- Simple to implement and understood.
+			- Reduces the load on a central load balancer.
+		- **Disadvantages**
+			- Consumers need to implement discovery logic.
+			- Changes in the registry protocol requires changes in the client.
+
+	2. **Server-side Discovery**
+		- In this model, the client delegates the responsibility of discovering and routing requests to a specific service instance to a centralized server or load balancer.
+		- Unlike, the client-side discovery, the client does not need to query the service registry directly or perform any load balancing itself.
+		- Instead, client simply sends a request to a central server ( load balancer or api gateway ) which handler the rest.
+		- **Working**
+			1. **Service Registration**
+				- Services register themselves with a centralized service registry, similar to client-side discovery.
+				- The service registry keeps track of all service instances, their IP addresses, Ports, and metadata.
+			2. **Client sends requests**
+				- Client sends a request to a load balancer or API gateway, specifying the service it wants to communicate with.
+				- The client does not query the service registry or know the specific location of the service instances.
+			3. **Server Queries the Service Registry** - The load balancer or gateway queries the service registry to find available instances of the requested service.
+			4. **Routing** - The load balancer selects a suitable service instance ( based on factors like load, proximity, or health ) and routes the clients request to that instance.
+			5. **Response** - The service instance processes the request and sends the response back to the client via the load balancer or gateway.
+
+		- **Advantages**
+			- Centralizes discovery logic, reducing the complexity for consumers.
+			- Easier to manage and update discovery protocols.
+
+		- **Disadvantages**
+			- Introduces an additional network hop.
+			- The load balancer can become a single point of failure.
+
+- ## Best practices for implementing Service Discovery
+	1. **Choose the Right Model** :- Use client-side discovery for custom load balancing and server-side for centralized routing.
+	2. **Ensure High Availability** :- Replicate the service registry and test failover scenarios to prevent downtime. Deploy multiple instances of the service registry to avoid single points of failures.
+	3. **Automate Registration** :- Use self-registration, sidecars or orhestration tools for dynamic environments. Ensure proper deregistration of stale services.
+	4. **Use Health Checks** :- Monitor service health and remove failing instances automatically.
+	5. **Follow Naming Conventions** :- Use clear, unique service names with versioning to avoid conflicts.
+	6. **Caching** :- Use caching mechanisms to reduce the load on the service registry and improve discovery performances.
+	7. **Scalability** :- Ensure that the service discovery system can scale with the growth of our services.
