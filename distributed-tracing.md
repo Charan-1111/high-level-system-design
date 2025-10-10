@@ -21,3 +21,16 @@
 	- Improves incident response time.
 	- Provides SLA/SLO compliance data.
 	- Enables root cause analysis in microservices.
+
+- ## Types of Tracing.
+	1. **Code Tracing**
+		- This method of tracing requires manual interpretation. We will see the results of each line of the code and tracks the changes in the variable values during the execution in the application.
+		- This process works particularly well for the small blocks of the code, enabling them to be analyzed without having to run the entire application.
+	2. **Data Tracing**
+		- It is used to perform data accuracy and quality checks on critical data elements ( CDE ) that are essential from a business perspective.
+		- This method can also be used to trace the prioritized CDEs back to their source systems to be proactively monitered.
+	3. **Program Tracing**
+		- This command delivers an index of the instructions that have been executed, as well as that has been referenced while an application has been running.
+		- Debuggers and other code analysis tools often use program trace to improve code as part of the software development.
+
+- Read this [article](https://www.dynatrace.com/news/blog/what-is-distributed-tracing/) for more.
