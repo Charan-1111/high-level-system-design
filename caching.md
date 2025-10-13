@@ -39,3 +39,5 @@
 	2. **Least Frequently Used ( LFU )** - LFU evicts data that has been accessed the least number of times, under the assumption that rarely accessed data is less likely to be needed.
 	3. **First-In-First-Out ( FIFO )** - FIFO evicts the oldest data in the cache first, regardless of how often or recently it has been accessed.
 	4. **Time-to-Live ( TTL )** - TTL is time-based eviction policy where data is removed from the cache after a specified duration, regardless of usage.
+
+- [Read about Caching Strategies here](https://blog.algomaster.io/p/top-5-caching-strategies-explained)
