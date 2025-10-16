@@ -33,3 +33,6 @@
 		5. **Function-based Index** - Indexes that are created based on the result of a function or expression applied to one or more columns of a table.
 		6. **Full-Text Index** - Index designed for full-text search, allowing for efficient searching of the text data.
 		7. **Spatial Index** - Used for indexing geographical data types.
+
+- Data structures used to create indexes are ***B-Trees, Hash Tables and Bitmaps***.
+- [ ] Read about this data structures.
