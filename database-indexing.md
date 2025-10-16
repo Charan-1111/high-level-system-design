@@ -20,3 +20,16 @@
 		1. **Primary Index** - Automatically created when a primary key constraint is defined on a table. It ensures uniqueness and helps with superfast lookups using the primary key.
 		2. **Clustered Index** - Determines the order in which data is physically stored in the table. A clustered index is most useful when we aer searching in a range. Only one clustered index can exist per table.
 		3. **Non-Clustered or Secondary Index** - This index does not store data in the order of the index. Instead it provides a list of virtual pointers or references to the location where the data is actually stored.
+	
+	- **Indexes based on Data Coverage**
+		1. **Dense Index** - Has an entry for every search key value in the table. Suitable for situations where the data has a small number of distinct search key values or when fast access to individual records is required.
+		2. **Sparse Index** - Has entries only for some of the search key values. Suitable for situations where the data has a large number of distinct search key values.
+	
+	- **Specialized Index Types**
+		1. **Bitmap Index** - Excellent for columns with low cardinality ( few distinct values ). Common in data wherehouse.
+		2. **Hash Index** - Index that uses a hash function to map values to specific locations. Great for exact match queries.
+		3. **Filtered Index** - Indexes a subset of rows based on a specific filter condition. Useful to improve query speed on commonly filtered columns.
+		4. **Covering Index** - Includes all the columns required by a query in the index itself, eliminating the need to access the underlying table data.
+		5. **Function-based Index** - Indexes that are created based on the result of a function or expression applied to one or more columns of a table.
+		6. **Full-Text Index** - Index designed for full-text search, allowing for efficient searching of the text data.
+		7. **Spatial Index** - Used for indexing geographical data types.
