@@ -35,3 +35,4 @@
 			- The browser.
 		- Future requests for the same domain will be faster.
 	- Step 8 :- The browser now makes a TCP or a HTTPS connection with the IP address.
+
