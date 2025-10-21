@@ -1,4 +1,3 @@
-
 # CAP Theorem
 
 - CAP Theorem provides a fundamental framework for understanding the trade-offs that must be made while designing distributed systems.
@@ -74,3 +73,4 @@
 	- Quorum-based approaches use voting among a group of nodes to ensure a certain level of consistency and fault tolerance.
 	- **Eg**. Systems needing balance between consistency and availabiltity, often used in consensus algorithms like Paxos and Raft.
 - [ ] TODO : Read about PACELC theorem
+
