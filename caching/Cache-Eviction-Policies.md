@@ -1,0 +1,130 @@
+# Cache Eviction Policies
+- Caching is a technique to make applications lighting fast, reduce database load, and improve user experience.
+- But cache memory is limited, we cannot store everything and we need to decide which items to keep and which items to evict when space runs out.
+- To evict cache items, we use cache eviction policies.
+
+- ## Least Recently Used ( LRU )
+	- LRU evicts the item that hasn't been used for the longest time.
+	- **Working**
+		- **Access Tracking** - LRU keeps track of when each item in the cache was last accessed. This can be done using various data structures like doubly linked list or a combination of hashmap and queue.
+		- **Cache Hit ( Item found in the cache )** - When an item is accessed, it is moved to the most recently used position in the tracking data structure.
+		- **Cache Miss ( Item not found in cache )**
+			- If the item is not in the cache and the cache has free space, it is added directly.
+			- If the cache is full, the least recently used item is evicted to make space for new item.
+		- **Eviction** - The item that has been accessed least recently ( tracked at the beggining of the list ) is removed from the cache.
+	- **Pros**
+		- **Intutive** - Easy to understand and widely adopted.
+		- **Efficient** - Keeps frequently accessed items in the cache.
+		- **Optimized for Real-World Usage** - Matches many access patterns, such as web browsing and API calls.
+	- **Cons**
+		- **Metadata Overhead** - Tracking usage order can consume additional memory.
+		- **Performance Cost** - For large caches, maintaining the access order may introduce computational overhead.
+		- **Not Adaptive** - Assumes past access patterns will predict future usage which may not always hold true.
+
+- ## Least Frequenly Used ( LFU )
+	- LFU evicts the items with lowest access frequency.
+	- **Working**
+		- **Track Access Frequency** - LFU maintains a frequency count for each item in the cache, incrementing the count each time the item is accessed.
+		- **Cache Hit ( Item found in cache )** - When an item is accessed, it is frequency count is increased.
+		- **Cache Miss ( Item not found in cache )**
+			- If the cache has available space, the new item is added with initial frequency count of 1.
+			- If the cache is full, the item with lowest frequency is evicted to make room for new item. If multiple items share the same lowest frequency, a second strategy like LRU or FIFO resolves ties.
+		- **Eviction** - Remote the item with smallest frequency count.
+	- **Pros**
+		- **Efficient for Predictable Patterns** - Retains frequently accessed data, which is often more relevant.
+		- **Highly Effective for Popular Data** - Works well in scenarios with clear hot items.
+	- **Cons**
+		- **High Overload** - Requires additional memory to track frequency counts.
+		- **Slower Updates** - Tracking and updating frequency can slow down operations.
+		- **Not Adaptive** - May keep items that were frequently accessed in the past but are no relevant.
+		
+- ## First In, First Out ( FIFO )
+	- FIFO evicts the item that was added first, regardless of how often it's accessed.
+	- **Working**
+		- **Item Insertion** - When an item is added to the cache, it is placed at the end of the queue.
+		- **Cache Hit ( Item found in cache )** - No changes are made to the order of items. FIFO does not prioritize recently accessed items.
+		- **Cache Miss ( Item not found in cache )**
+			- If there is space in the cache, new item is added to the end of the queue.
+			- If the cache is full, item at the front of the queue ( oldest item ) is evicted to make space for the new item.
+		- **Eviction** - Oldest item which has been in the cache the longest, is removed to make room for new item.
+	- **Pros**
+		- **Simplest to implement** - FIFO is straight forward and required minimal logic.
+		- **Low Overhead** - No need to track additional metadata like access frequency or recency.
+		- **Deterministic Behaviour** - Evictions follows a predictable order.
+	- **Cons**
+		- **Ignores Access Patterns** - Items still in frequent use can be evicted, reducing cache efficiency.
+		- **Suboptimal for Many Use Cases** - FIFO is rarely ideal in modern systems where recency and frequency matter.
+		- **May Waste Cache Space** - If old but frequency used items are evicted, the cache loses its utility.
+
+- ## Random Replacement ( RR )
+	- When cache is full it evicts a random item to make space for new one.
+	- It doesn't track recency, frequency or insertion order making it a light weight approach with minimal computational overhead.
+	- **Working**
+		- **Item Insertion** - When an item is added to the cache and there is space, it is stored directly.
+		- **Cache Hit** - If the requested item exists in the cache it is served and no changes are made to cache.
+		- **Cache Miss** - If the item is not in the cache and cache is full, a random item is removed.
+		- **Eviction** - Randomly selected item is removed and the new item is added to the cache.
+	- **Pros**
+		- **Simple to Implement** - No need for metadata like access frequency or recency.
+		- **Low Overhead** - Computational and memory requirements are minimal.
+		- **Fair for Unpredictable Access Patterns** - Avoids bias towards recency or frequency which can be useful in some scenarios.
+	- **Cons**
+		- **Unpredictable Eviction** - A frequency used item might be evicted, reducing cache efficiency.
+		- **Ineffective for Stable Access Patterns** - Doesn't adapt well when certain items are consistently accessed.
+		- **High Risk of Poor Cache Hit Rates** - Randoms eviction often leads to suboptimal retention of important items.
+
+- ## Most Recently Used ( MRU )
+	- MRU is opposite to LRU. In MRU, the item that was accessed most recently is the first to be evicted when cache is full.
+	- **Working**
+		- **Item Insertion** - When a new item is added to the cache, it is marked as the most recently used.
+		- **Cache Hit ( Item found in cache )** - When an item is accessed, it is marked as the most recently used.
+		- **Cache Miss ( Item not found in cache )**
+			- If the cache has space, new item is added directly.
+			- If cache is full, most recently used item is evicted to make room for the new item.
+		- **Eviction** - Item that was accessed or added most recently is removed.
+	- **Pros**
+		- **Effective in Specific Scenarios** - Retains older data which might be more valuable in certain work loads.
+		- **Simple Implementations** - Requires minimal metadata.
+	- **Cons**
+		- **Suboptimal for most use cases** - MRU assumes recent data is less valuable, which is often untrue for many applications.
+		- **Poor Hit Rate in Predictable patterns** - Fails in scenarios where recently accessed data is more likely to be reused.
+		- **Rarely used in practice** - Limited applicability compared to other strategies like LRU or LFU.
+
+- ## Time to Live ( TTL )
+	- In TTL each cached item is assigned a fixed lifespan. Once the item's lifespan expires, it is automatically removed from the cache, regardless of access patterns or frequency.
+	- **Working**
+		- **Item Insertion** - When an item is added to the cache, a TTL value is assigned to it. This expiration time is usually calculates as current time + TTL.
+		- **Cache Access ( Hit or Miss )**
+			- When a item is accessed, the cache checks it expiration time.
+			- If time is expired, it is removed from the cache, and cache miss is recorded.
+			- If the item is valid, it is served as cache hit.
+		- **Eviction** - Expired items are automatically removed either during periodic cleanup or on access.
+	- TTL is often implemented in caching systems like Redis or Memcached.
+	- **Pros**
+		- **Ensures Freshness** - Automatically removes stale data, ensuring only fresh items remain in the cache.
+		- **Simple to Configure** - TTL values are easy to assign during cache insertion.
+		- **Low Overhead** - No need to track usage patterns or access frequency.
+		- **Prevents Memory Leaks** - Stale data is cleared out systematically, avoiding cache bloat.
+	- **Cons**
+		- **Fixed Lifespan** - Items may be evicted prematurely even if they are frequently accessed.
+		- **Wasteful Eviction** - Items that haven't expired but are still irrelevant occupy cache space.
+		- **Limited Flexibility** - TTL doesn't adapt to dynamic workloads or usage patterns.
+
+- ## Two-Tiered Caching
+	- Two-tiered caching combines two layers of cache usually a local cache ( in-memory ) and a remote cache ( distributed or shared ).
+	- **Working**
+		1. **Local Cache ( First Tier )**
+			- Resides on the same server as the application, often in memory ( eg :- HashMap, LRUCache in the application ).
+			- Provides ultra-fast access to frequently accessed data, reducing latency and server load.
+		2. **Remote Cache ( Second Tier )**
+			- Shared across multiple servers in the system. Slightly slower due to network overhead but offers large storage and shared consistency.
+			- Used to store data that is not in the local cache but is still frequently needed.
+	- **Pros**
+		- **Ultra-Fast Access** - Local cache provides near-instantaneous response times for frequent requests.
+		- **Scalable Storage** - Remote cache adds scalability and allows data sharing across multiple servers.
+		- **Reduces Database load** - Two-tiered caching significantly minimizes calls to the backend database.
+		- **Fault Tolerance** - If the local cache fails, the remote cache acts as a fallback.
+	- **Cons**
+		- **Complexity** - Managing two caches introduces more overhead, including synchronization and consistency issues.
+		- **Stale Data** - Inconsistent updates between tiers may lead to serving stale data.
+		- **Increased Latency for Remote Cache Hits** - Accessing the second-tier remote cache is slower than the local cache.
