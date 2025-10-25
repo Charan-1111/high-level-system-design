@@ -1,0 +1,57 @@
+# Cache Eviction Policies
+- Caching is a technique to make applications lighting fast, reduce database load, and improve user experience.
+- But cache memory is limited, we cannot store everything and we need to decide which items to keep and which items to evict when space runs out.
+- To evict cache items, we use cache eviction policies.
+
+- ## Least Recently Used ( LRU )
+	- LRU evicts the item that hasn't been used for the longest time.
+	- **Working**
+		- **Access Tracking** - LRU keeps track of when each item in the cache was last accessed. This can be done using various data structures like doubly linked list or a combination of hashmap and queue.
+		- **Cache Hit ( Item found in the cache )** - When an item is accessed, it is moved to the most recently used position in the tracking data structure.
+		- **Cache Miss ( Item not found in cache )**
+			- If the item is not in the cache and the cache has free space, it is added directly.
+			- If the cache is full, the least recently used item is evicted to make space for new item.
+		- **Eviction** - The item that has been accessed least recently ( tracked at the beggining of the list ) is removed from the cache.
+	- **Pros**
+		- **Intutive** - Easy to understand and widely adopted.
+		- **Efficient** - Keeps frequently accessed items in the cache.
+		- **Optimized for Real-World Usage** - Matches many access patterns, such as web browsing and API calls.
+	- **Cons**
+		- **Metadata Overhead** - Tracking usage order can consume additional memory.
+		- **Performance Cost** - For large caches, maintaining the access order may introduce computational overhead.
+		- **Not Adaptive** - Assumes past access patterns will predict future usage which may not always hold true.
+
+- ## Least Frequenly Used ( LFU )
+	- LFU evicts the items with lowest access frequency.
+	- **Working**
+		- **Track Access Frequency** - LFU maintains a frequency count for each item in the cache, incrementing the count each time the item is accessed.
+		- **Cache Hit ( Item found in cache )** - When an item is accessed, it is frequency count is increased.
+		- **Cache Miss ( Item not found in cache )**
+			- If the cache has available space, the new item is added with initial frequency count of 1.
+			- If the cache is full, the item with lowest frequency is evicted to make room for new item. If multiple items share the same lowest frequency, a second strategy like LRU or FIFO resolves ties.
+		- **Eviction** - Remote the item with smallest frequency count.
+	- **Pros**
+		- **Efficient for Predictable Patterns** - Retains frequently accessed data, which is often more relevant.
+		- **Highly Effective for Popular Data** - Works well in scenarios with clear hot items.
+	- **Cons**
+		- **High Overload** - Requires additional memory to track frequency counts.
+		- **Slower Updates** - Tracking and updating frequency can slow down operations.
+		- **Not Adaptive** - May keep items that were frequently accessed in the past but are no relevant.
+		
+- ## First In, First Out ( FIFO )
+	- FIFO evicts the item that was added first, regardless of how often it's accessed.
+	- **Working**
+		- **Item Insertion** - When an item is added to the cache, it is placed at the end of the queue.
+		- **Cache Hit ( Item found in cache )** - No changes are made to the order of items. FIFO does not prioritize recently accessed items.
+		- **Cache Miss ( Item not found in cache )**
+			- If there is space in the cache, new item is added to the end of the queue.
+			- If the cache is full, item at the front of the queue ( oldest item ) is evicted to make space for the new item.
+		- **Eviction** - Oldest item which has been in the cache the longest, is removed to make room for new item.
+	- **Pros**
+		- **Simplest to implement** - FIFO is straight forward and required minimal logic.
+		- **Low Overhead** - No need to track additional metadata like access frequency or recency.
+		- **Deterministic Behaviour** - Evictions follows a predictable order.
+	- **Cons**
+		- **Ignores Access Patterns** - Items still in frequent use can be evicted, reducing cache efficiency.
+		- **Suboptimal for Many Use Cases** - FIFO is rarely ideal in modern systems where recency and frequency matter.
+		- **May Waste Cache Space** - If old but frequency used items are evicted, the cache loses its utility.
