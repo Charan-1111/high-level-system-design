@@ -1,0 +1,11 @@
+# Stream Processing
+- Stream processing involves processing data in real-time or near real time it arrives.
+- ## Key Characteristics
+	- **Real-time Processing** - Data is processed as soon as it is received.
+	- **Low Latency** - Stream processing systems are designed to provide low-latency responses, often within milliseconds or seconds.
+	- **Event-driven** - Processing is triggered by events, making it suitable for real-time applications.
+	- **Infinite data streams** - Stream processing systems work on continuous flows of data, as opposed to finite datasets in batch processing.
+- ## Challenges in Stream Processing
+	- **Complexity** - The system must handle data continuously requiring real-time monitoring, scaling and fault tolerance mechanisms.
+	- **Data Consistency** - Since data is processed in real time, maintaining consistency, especially in distributed systems, can be difficult.
+	- **Error Handling** - In stream processing, errors need to be managed in real-time. Recovering from failures while maintaining accurate results can be challenging, especially in distributed systems where state is maintained across multiple nodes.
