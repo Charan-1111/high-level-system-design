@@ -1,0 +1,20 @@
+# WebSockets
+- WebSockets provide a full-duplex, persistent connection between the client and the server.
+- Once established, both parties can send data to each other at any time, without the overhead of repeated HTTP requests.
+- ## Working
+	- **Handshake** - Client sends an HTTP request with Upgrade : websocket.
+	- **Connection** - If supported, the server upgrades the connection to WebSocket ( switching from http:// to ws:// ). After the handshake, client and server keep a TCP socket open for communication.
+	- **Full-Duplex Communication** - Once upgraded, data can be exchanged bidirectionally in real-time until either side closes the connection.
+- ## Pros
+	- Ultra-low latency ( no repeated handshakes ).
+	- Lower overhead since there is only one persistent connection rather than repeated HTTP requests.
+	- Scalable for real-time applications that need to support large number of concurrent users.
+- ## Cons
+	- More complex setup ( requires the client and server to support WebSocket ).
+	- Some proxies and firewalls may not allow WebSocket traffic.
+	- Complexity in implementation and handling reconnections or errors.
+	- Server resource usage might grow if we have large number of concurrent connections.
+- ## Use Cases
+	- Live chat and collaboration tools.
+	- Multiplayer online games with real-time state synchronization.
+	- Live sports/financial dashboards that need to push frequent updates.
