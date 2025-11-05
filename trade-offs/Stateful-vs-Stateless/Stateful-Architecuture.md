@@ -3,3 +3,17 @@
 	- **Stateless** - Client includes all necessary data in each request, so the server doesn't store any prior information.
 	- **Stateful** - Server retains some data from previous requests, making future interactions dependent on past state.
 - In software systems, state refers to any data that persists across requests, such as user sessions, shopping carts or authentication details.
+- In stateful architecture, the system remembers client or process data ( state ) across multiple requests.
+- Once a client connects, server holds on to certain details like user preferences, shopping carts contents or authentication sessions, so the client doesn't need to resend everything with each request.
+- Stateful systems typically store the data in a database or in-memory storage.
+- Common patterns in Stateful-Architecture
+	- Sticky Sessions
+	- Centralized Session Store.
+- ## Advantages
+	- **Personalized Experiences** - Stateful systems can deliver highly tailored interactions as they remember user preferences and past actions.
+	- **Contextual Continuity** - Users can seamlessly resume activities where they left off, even if they disconnect and reconnect.
+	- **Reduced Round Trips** - Certain operations can be faster because the server already possesses necessary data.
+- ## Challenges
+	- **Scalability** - Maintaining state for a large number of users can become resource-intensive and complex as each server needs to keep track of specific sessions.
+	- **Complexity** - Managing and synchronizing state across multiple servers ( if needed ) introduces additional challenges.
+	- **Failure Points** - If a server holding a user's state fails, their session data might be lost.
