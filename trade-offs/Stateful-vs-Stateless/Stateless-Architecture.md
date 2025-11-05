@@ -1,1 +1,18 @@
-
+# Stateless Architecture
+- In stateless architecture, the server does not preserve client-specific data between individual requests.
+	- Each request is treated as independent, with no memory of previous interactions.
+	- Every request must include all necessary information for processing.
+	- Once the server responds, it discards any temporary data used for that request.
+- Common patterns in Stateless Architecture
+	- Token-Based Authentication ( JWT ).
+	- Idempotent APIs
+- ## Advantages
+	- **Scalability** - Stateless systems are inherently easier to scale horizontally. New servers can be added effortlessly, as they don't need to maintain any specific user sessions.
+	- **Simplicity** - Since servers don't track state, the architecture is generally simpler and easier to manage.
+	- **Resilience** - Failure of a single server won't disrupt user sessions, as data isn't tied to specific servers.
+	- **Lower Memory Footprint** - With no session data stored on the server, we free up memory that would otherwise be reserved for session management.
+	- **Easier to cache responses** - Since requests are self-contained, caching layers ( like CDNs ) can more easily store and serve responses.
+- ## Challenges
+	- **Less Context** - Stateless systems can't provide the same level of personalization or context awareness as stateful systems without additional efforts.
+	- **Client-Side Complexity** - Client must keep trace of authentication token or relevant data. If it loses the token, it must re-authenticate.
+	- **Large Payloads** - Every request needs to carry all the required information, potentially leads to large payloads
