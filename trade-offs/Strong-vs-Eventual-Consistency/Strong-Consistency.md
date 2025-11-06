@@ -1,0 +1,20 @@
+# Strong Consistency
+- Strong consistency guarantees that once a write is successfully completed, any read operation from any client or replica will reflect that write or a newer one.
+- It behaves, as if there is a single globally synchronized copy of the data, and all operations occurs in a clear and consistent global order.
+- To achieve strong consistency, the system performs coordinated communication between replicas before confirming a write.
+- ## Pros
+	- **Simpler Application Logic** - We don't need to worry about stale data or implementing custom conflict resolution.
+	- **Predictable Behavior** - Easy to reason about, data reads always reflect the latest confirmed writes.
+	- **Data Integrity** - Ensures highest level of data integrity and reliability.
+- ## Cons
+	- **Latency Overhead** - Writes ( sometimes reads ) may be slower, as they require coordination between nodes, often across regions.
+	- **Reduced Availability** - During network partitions or node failure, system may reject requests to preserve consistency.
+	- **Complex Infrastructure** - Implementing strong consistency at scale requires sophisticated protocols and distributed coordination mechanisms.
+- ## When to choose Strong Consistency
+	- Strong consistency is right choice when the application needs immediate correctness and absolute accuracy.
+	- It is especially important when inconsistencies could result in lost data, incorrect decisions or broken trust.
+	- Strong consistency is especially need in
+		- Banking and Financial systems.
+		- Inventory Management.
+		- Distributed Locking
+		- Unique ID generation.
