@@ -1,0 +1,11 @@
+# Pull Architecture
+- In a pull architecture, clients request data or updates from the server as needed.
+- Client initiates the communication, pulling information from the server when it requires specific data.
+- ## Advantages
+	- **Scalability** - Easier to scale as clients manage their own request frequently, reducing server load.
+	- **Simpler Implementation** - Generally easier to implement and manage, especially for applications with sporadic data needs.
+	- **Client Control** - Clients have more control over when and what they receive, reducing unnecesary data transfers
+- ## Disadvantages
+	- **Higher Latency** - Clients may experience delays waiting for the next polling interval or in making requests.
+	- **Increases Traffic** - Frequent polling can lead to increased network traffic and server load.
+	- **Stale Data** - Clients may have outdated information between polling intervals, which can be problematic for real-time applications.
