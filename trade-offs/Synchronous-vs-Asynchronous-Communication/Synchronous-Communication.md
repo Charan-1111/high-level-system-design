@@ -1,0 +1,14 @@
+# Synchronous Communication
+- In a synchronous communication, when a service sends a request, it stops everything and waits for the response.
+- It is a blocking operation, means sender is blocked from doing any other work until it hear back from the receiver.
+-  ## Pros
+	- **Simple Implementation** - Synchronous designs are often straight forward to implement, as the request and response occur in a single continuous transaction.
+	- **Immediate Feedback** - Synchronous communications provide instant feedback, allowing for swift error detection and correction.
+	- **Consistency** - Data consistency is easier to manage because updates are processed in order.
+- ## Cons
+	- **Tight Coupling** - Synchronous communications can create tight coupling between components, making it challenging to evolve or replace individual components without affecting the entire system.
+	- **Blocking** - Sender is blocked until a response is received, potentially leading to resource waste and decreased system performance.
+	- **Resource Intensive** - Each request must be fully processed before moving to the next, potentially leading to resource underutilization.
+- ## Common Use Cases
+	- **Low Latency Applications** - Synchronous communications are suitable for applications requiring real-time responses, such as video streaming or online gaming.
+	 -   **Simple transactions**: Synchronous designs are ideal for straightforward transactions, like querying a database or fetching cached data.
