@@ -1,0 +1,23 @@
+# Eventual Consistency
+- Eventual consistency is a weaker consistency model that guarantees all replicas in a distributed system will converge to the same value, eventually as long as no new updates are made.
+- There is no guarantee about how soon this convergence happens.
+- In the meantime, different replicas may serve different versions of data leading to temporary inconsistencies.
+- This model is often used in distributed systems where high availability and partition tolerance are prioritized over immediate consistency.
+- ## Pros
+	- **Low Latency** - Writes don't need to wait for global coordination, responses are fast.
+	- **High Availability** - Nodes can accept reads and writes independently even during network partitions.
+	- **Great for Scalability** - Ideal for large-scale, globally distributed systems that need to stay responsive under heavy load.
+- ## Cons
+	- **Temporary Staleness** - Clients may read outdated data until replicas are fully synchronized.
+	- **Increased Application Complexity** - Developers must handle inconsistencies in code especially in read-after-write scenarios.
+	- **Potential for Conflicts** - If multiple replicas accept concurrent writes, we need a conflict resolution strategy.
+- ## When to use Eventual Consistency
+	- Eventual consistency is a good fit for applications that require high availability and can tolerate temporary inconsistencies.
+	- Especially effective when systems are distributed globally or need to operate at massive scale.
+	- Common use cases
+		- Social media metrics
+		- Product view counts or analytics
+		- Recommendation systems.
+		- DNS ( Domain Name System )
+		- CDN ( Content Delivery Networks )
+		- Shopping Cart
