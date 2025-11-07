@@ -1,0 +1,17 @@
+# Asynchronous Communication
+- In a asynchronous communication, when a service sends a request, it doesn't wait for a response.
+- It fires off the message and immediately moves onto its next tasks ( non-blocking operation ).
+- ## Pros
+	- **Non-Blocking** - Sender does not block and can continue executing other tasks after sending the message, reducing waste and improving system performance.
+	- **Loose Coupling** - Sender and receiver are loosely coupled allowing them to operate independently.
+	- **Scalability** - Asynchronous communication enables better scalability as the sender and receiver can process messages at their own pace.
+	- **Resilience** - Failures in one part of the system do not necessarily cripple the entire operation.
+- ## Cons
+	- **Complex Implementation** - Asynchronous designs can be more challenging to implement, as they require additional mechanisms for handling response and errors.
+	- **Delayed Feedback** - Asynchronous communications may introduce delayed feedback, making error.
+	- **Data Consistency** - Ensuring data consistency across different parts of the system can be more complex.
+- ## Common Use Cases
+	-   **High-throughput applications**: Asynchronous communications are suitable for applications requiring high throughput, such as message queues or task processing.
+	-   **Decoupled systems**: Asynchronous designs are ideal for systems with multiple, independent components, like microservices architecture.
+	-   **Long-running tasks:** Offloading non-urgent tasks to an asynchronous queue, like image processing or report generation, is ideal.
+	-   **Event-driven architectures:** Asynchronous communication shines in systems where components react to real-time events, such as notifications.
