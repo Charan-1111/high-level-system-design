@@ -1,0 +1,14 @@
+# Write-Through Cache
+- In Write-Through cache, data is written into cache and corresponding database simultaneously.
+- Every write operation writes to both cache and data store.
+- ## Advantages
+	- **Data Consistency** - Cache is always in sync with data store.
+	- **Reduced Risk of Data Loss** - Since every write is immediately persisted to the data store, the risk of data loss is minimized.
+	- **Simplified Read Operations** - Subsequent read operations will always fetch the most recent data from the cache.
+- ## Disadvantages
+	- **Increased Write Latency** - Every write operation involves writing to both the cache and the data store, which can increase latency.
+	- **Higher Resource Usage** - This strategy requires more network bandwidth and processing power due to dual write operations.
+- ## Use Cases
+	- Applications where data consistency is critical.
+	- Systems that can't afford data loss in case of cache failures.
+	- Scenarios where read performance after a write operation is crucia
