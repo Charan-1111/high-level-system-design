@@ -1,0 +1,14 @@
+# Read-Through Cache
+- A Read-Through cache sits in-between application and the data store.
+- When application requests for data, it firsts checks in cache, if there is a cache hit, it is returned to the application. If there is a cache miss, then cache itself is responsible for loading the data from the data store, caching it and then returning to application.
+- ## Advantages
+	- **Simplified Application Logic** - Application doesn't need to know about the underlying data store. It always read from cache.
+	- **Consistency** - Cache is always in sync with data store for read operations.
+	- **Reduced Load on Data Store** - Frequency access data is served from the cache, reducing queries to data store.
+- ## Disadvantages
+	- **Initial Request Latency** - First request for any data will be slower as it needs to be loaded into the cache first.
+	- **Data Staleness** - If the data in the underlying store changes, cache won't reflect this until the cached data expires or explicitly invalidated.
+- ## Use Cases
+	- Applications with read-heavy workloads.
+	- Scenarios where data won't change frequently.
+	- Systems where consistency between cache and data is crucial for read operations.
