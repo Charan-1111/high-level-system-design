@@ -82,6 +82,7 @@ Design a Bit.ly–like service that converts long URLs into short, manageable UR
 ### 🏗️ High-Level Design
 [URL Shortener HLD](https://github.com/Charan-1111/images/blob/main/bitly.png)
 
+![HLD](https://raw.githubusercontent.com/Charan-1111/images/refs/heads/main/bitly.png)
 ### Component Overview
 -  **CDN**
 	-   Serves requests from nearest geo-location
