@@ -1,7 +1,7 @@
 
 # Design a URL Shortener (Bit.ly-like Service)
 
-## 📌 Problem Statement
+### 📌 Problem Statement
 Design a Bit.ly–like service that converts long URLs into short, manageable URLs.
 
 ---
@@ -80,7 +80,7 @@ Design a Bit.ly–like service that converts long URLs into short, manageable UR
 ---
 
 ### 🏗️ High-Level Design
-![URL Shortener HLD]https://github.com/Charan-1111/images/blob/main/bitly.png)
+[URL Shortener HLD](https://github.com/Charan-1111/images/blob/main/bitly.png)
 
 ### Component Overview
 -  **CDN**
