@@ -67,8 +67,9 @@ Design a Bit.ly–like service that converts long URLs into short, manageable UR
   "alias": "string",
   "expiryTime": "timestamp"
 }
-
+```
 ### Response
+```json
 {
     "shortUrl" : "shortUrl"
 }
